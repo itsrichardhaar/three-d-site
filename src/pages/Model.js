@@ -32,7 +32,7 @@ function Model({ scrollY }) {
   });
 
   return (
-    <group ref={groupRef} scale={3.5}>
+    <group ref={groupRef} scale={4.5}>
       <primitive object={scene} />
     </group>
   );
