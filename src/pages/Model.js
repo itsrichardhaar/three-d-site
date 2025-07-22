@@ -2,35 +2,48 @@
 import React, { useRef, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
+import * as THREE from "three";
 
 function Model({ scrollY }) {
   const { scene } = useGLTF("/models/500px-z_test.glb");
-  const ref = useRef();
+  const groupRef = useRef();
   const targetRotation = useRef({ x: 0, y: 0 });
 
-  useFrame(() => {
-    if (ref.current) {
-      // Update target rotation based on "scroll"
-      targetRotation.current.y = scrollY.current * 0.005;
-      targetRotation.current.x = scrollY.current * 0.002;
+  // Recenter the model by computing its bounding box
+  useEffect(() => {
+    const box = new THREE.Box3().setFromObject(scene);
+    const center = box.getCenter(new THREE.Vector3());
 
-      // Smoothly interpolate to target
-      ref.current.rotation.y += (targetRotation.current.y - ref.current.rotation.y) * 0.1;
-      ref.current.rotation.x += (targetRotation.current.x - ref.current.rotation.x) * 0.1;
+    scene.position.sub(center); // Move model so that its center is at (0,0,0)
+  }, [scene]);
+
+  useFrame(() => {
+    if (groupRef.current) {
+      // Target rotation based on scroll
+      targetRotation.current.y = scrollY.current * 0.001;
+      targetRotation.current.x = scrollY.current * 0.001;
+
+      // Smooth interpolation
+      groupRef.current.rotation.y +=
+        (targetRotation.current.y - groupRef.current.rotation.y) * 0.1;
+      groupRef.current.rotation.x +=
+        (targetRotation.current.x - groupRef.current.rotation.x) * 0.1;
     }
   });
 
-  return <primitive ref={ref} object={scene} scale={1.5} />;
+  return (
+    <group ref={groupRef} scale={1.5}>
+      <primitive object={scene} />
+    </group>
+  );
 }
-
 
 export default function ModelPage() {
   const scrollY = useRef(0);
 
   useEffect(() => {
     const handleWheel = (e) => {
-      // Increase or decrease the scrollY value with wheel delta
-      scrollY.current += e.deltaY * 0.1; // adjust 0.1 for sensitivity
+      scrollY.current += e.deltaY * 0.1; // scroll sensitivity
     };
     window.addEventListener("wheel", handleWheel);
     return () => window.removeEventListener("wheel", handleWheel);
@@ -47,4 +60,6 @@ export default function ModelPage() {
     </div>
   );
 }
+
+
 
