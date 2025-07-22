@@ -70,5 +70,10 @@ body, .App {
   opacity: 0;
 }
 
+.return-home:hover {
+  color: #0076b6;
+  text-decoration: underline;
+}
+
 
 
