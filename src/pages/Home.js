@@ -10,7 +10,7 @@ function Home() {
   const navLinksRef = useRef([]);
 
   useEffect(() => {
-    // HERO TIMELINE ANIMATION
+
     const heroTimeline = anime.timeline({ autoplay: true });
     heroTimeline
       .add({
@@ -34,7 +34,6 @@ function Home() {
         easing: "easeOutElastic(1, .8)",
       });
 
-    // SCROLL ANIMATIONS FOR SECTIONS
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -60,7 +59,6 @@ function Home() {
 
   return (
     <div className="App">
-      {/* Navigation */}
       <nav className="navbar">
         {["hero", "about", "services", "contact"].map((id, index) => (
           <a
@@ -73,14 +71,13 @@ function Home() {
         ))}
       </nav>
 
-      {/* Hero Section */}
       <section
         ref={(el) => (sectionsRef.current[0] = el)}
         id="hero"
         className="section section-hero"
       >
         <div className="hero-content">
-          <h1 className="hero-title">Welcome to My Site</h1>
+          <h1 className="hero-title">3D Animation Test</h1>
           <p className="hero-subtext">Scroll down to see more content.</p>
           <button className="hero-btn" onClick={() => navigate("/3d-model")}>
             View 3D Model
@@ -88,7 +85,6 @@ function Home() {
         </div>
       </section>
 
-      {/* Other Sections */}
       <section
         ref={(el) => (sectionsRef.current[1] = el)}
         id="about"
