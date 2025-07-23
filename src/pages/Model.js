@@ -133,8 +133,13 @@ export default function ModelPage() {
 
       {/* 3D Canvas */}
       <Canvas style={{ height: "100vh" }} camera={{ position: [0, 0, 5] }}>
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[5, 5, 5]} />
+        <ambientLight intensity={0.3} /> {/* soft overall light */}
+        <directionalLight 
+        position={[0, 0, 5]} 
+        intensity={2} 
+        color={"#ffffff"} 
+        />
+        <pointLight position={[0, 5, 10]} intensity={1} />
         <Suspense fallback={<Loader />}>
             <Model scrollY={scrollY} />
         </Suspense>
