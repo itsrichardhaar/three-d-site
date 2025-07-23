@@ -50,7 +50,7 @@ export default function ModelPage() {
   }, []);
 
   return (
-    <div style={{ height: "100vh", background: "#111", overflow: "hidden" }}>
+    <div style={{ height: "100vh", background: "#474747", overflow: "hidden" }}>
       <Canvas style={{ height: "100vh" }} camera={{ position: [0, 0, 5] }}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} />
