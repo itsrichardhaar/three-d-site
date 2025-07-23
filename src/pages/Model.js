@@ -5,7 +5,7 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 
 function Model({ scrollY }) {
-  const { scene } = useGLTF("/models/500px-z_test.glb");
+  const { scene } = useGLTF("/models/500px-z_test-2.glb");
   const groupRef = useRef();
   const targetRotation = useRef({ x: 0, y: 0 });
 
