@@ -1,5 +1,5 @@
 // src/ModelPage.js
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
@@ -38,7 +38,8 @@ function Model({ scrollY }) {
 
 export default function ModelPage() {
   const scrollY = useRef(0);
-  const [textStyle, setTextStyle] = useState({ transform: "translateY(0px)", opacity: 1 });
+  const textRef = useRef(null);
+  const currentY = useRef(0); // track the current text position
 
   useEffect(() => {
     const handleWheel = (e) => {
@@ -47,14 +48,32 @@ export default function ModelPage() {
     window.addEventListener("wheel", handleWheel);
 
     const updateText = () => {
-      const y = scrollY.current;
-      setTextStyle({
-        transform: `translateY(${y * 0.2}px)`, // parallax-like effect
-        opacity: Math.max(1 - y / 500, 0), // fade out when scrolling
-      });
+      // Target value (based on scroll)
+      const targetY = scrollY.current * 0.2;
+
+      // Apply inertia (lerp)
+      currentY.current += (targetY - currentY.current) * 0.1;
+
+      // Update text position/opacity directly
+      if (textRef.current) {
+        textRef.current.style.transform = `translateY(${currentY.current}px)`;
+        textRef.current.style.opacity = Math.max(1 - scrollY.current / 500, 0);
+      }
+
       requestAnimationFrame(updateText);
     };
     requestAnimationFrame(updateText);
+
+    // Anime.js fade-in on page load
+    if (textRef.current) {
+      anime({
+        targets: textRef.current,
+        opacity: [0, 1],
+        translateY: ["20px", "0px"],
+        duration: 1200,
+        easing: "easeOutCubic",
+      });
+    }
 
     return () => window.removeEventListener("wheel", handleWheel);
   }, []);
@@ -63,6 +82,7 @@ export default function ModelPage() {
     <div style={{ height: "100vh", background: "#474747", overflow: "hidden", position: "relative" }}>
       {/* Text Overlay */}
       <div
+        ref={textRef}
         style={{
           position: "absolute",
           top: "90%",
@@ -73,8 +93,8 @@ export default function ModelPage() {
           textTransform: "uppercase",
           color: "#fff",
           fontFamily: "Arial, sans-serif",
-          transition: "transform 0.1s linear, opacity 0.2s ease-out",
-          ...textStyle,
+          willChange: "transform, opacity",
+          opacity: 0,
         }}
       >
         Scroll to Rotate the Model
@@ -90,6 +110,7 @@ export default function ModelPage() {
     </div>
   );
 }
+
 
 
 
