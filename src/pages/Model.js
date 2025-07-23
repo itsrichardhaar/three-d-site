@@ -6,7 +6,7 @@ import * as THREE from "three";
 import anime from "animejs/lib/anime.es.js";
 
 function Model({ scrollY }) {
-  const { scene } = useGLTF("/models/500px-z_test-2.glb");
+  const { scene } = useGLTF("https://springercdn-cf.s3.us-east-1.amazonaws.com/springer/models/500px-z_test-2.glb");
   const groupRef = useRef();
   const targetRotation = useRef({ x: 0, y: 0 });
 
