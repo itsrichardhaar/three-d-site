@@ -68,7 +68,7 @@ export default function ModelPage() {
     if (textRef.current) {
       anime({
         targets: textRef.current,
-        translateY: [-50, 0],
+        translateY: [100, 0],
         opacity: [0, 1],
         duration: 800,
         easing: "easeOutExpo",
