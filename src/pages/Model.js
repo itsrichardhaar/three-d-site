@@ -4,9 +4,40 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import anime from "animejs/lib/anime.es.js";
+import { Html, useProgress } from "@react-three/drei";
+import { Suspense } from "react";
+
+function Loader({ onComplete }) {
+  const { progress } = useProgress(); // actual model loading progress
+  const [displayProgress, setDisplayProgress] = React.useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const interval = setInterval(() => {
+      start += 2; // speed of progress (2% increments)
+      if (start >= 100) {
+        start = 100;
+        clearInterval(interval);
+        onComplete(); // trigger when loading is done
+      }
+      setDisplayProgress(start);
+    }, 30); // interval speed in ms (30ms ~ 3 seconds to reach 100%)
+    
+    return () => clearInterval(interval);
+  }, [onComplete]);
+
+  return (
+    <Html center>
+      <div style={{ color: "#fff", fontSize: "1.5rem", textAlign: "center" }}>
+        Loading {displayProgress}%
+      </div>
+    </Html>
+  );
+}
+
 
 function Model({ scrollY }) {
-  const { scene } = useGLTF("/models/500px-z_test-2.glb");
+  const { scene } = useGLTF("/models/500px-z_test-2.glb"); 
   const groupRef = useRef();
   const targetRotation = useRef({ x: 0, y: 0 });
 
@@ -104,7 +135,9 @@ export default function ModelPage() {
       <Canvas style={{ height: "100vh" }} camera={{ position: [0, 0, 5] }}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} />
-        <Model scrollY={scrollY} />
+        <Suspense fallback={<Loader />}>
+            <Model scrollY={scrollY} />
+        </Suspense>
         <OrbitControls enableZoom={false} />
       </Canvas>
     </div>
