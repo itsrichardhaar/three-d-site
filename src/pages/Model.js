@@ -68,10 +68,10 @@ export default function ModelPage() {
     if (textRef.current) {
       anime({
         targets: textRef.current,
+        translateY: [-50, 0],
         opacity: [0, 1],
-        translateY: ["20px", "0px"],
-        duration: 1200,
-        easing: "easeOutCubic",
+        duration: 800,
+        easing: "easeOutExpo",
       });
     }
 
