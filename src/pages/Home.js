@@ -119,7 +119,7 @@ function Home() {
           mouseInfluence={0.2}
           noiseAmount={0}
           distortion={0}
-          pulsating="false"
+          pulsating={false}
           className="custom-rays"
         />
         <div className="hero-content" style={{ position: 'relative', zIndex: 1 }}>
