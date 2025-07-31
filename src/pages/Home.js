@@ -124,9 +124,9 @@ function Home() {
         />
         <div className="hero-content" style={{ position: 'relative', zIndex: 1 }}>
           <h1 className="hero-title">About Us</h1>
-          <p className="hero-subtext">Learn more about the team</p>
+          <p className="hero-subtext">Get to know the team</p>
           <button className="hero-btn" onClick={() => navigate("/3d-model")}>
-            This is the about section.
+            Learn More
           </button>
         </div>
       </section>
