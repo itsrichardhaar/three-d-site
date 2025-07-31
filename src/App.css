@@ -17,7 +17,7 @@ html, body {
   position: fixed;
   top: 0;
   width: 100%;
-  background: #333;
+  background: rgb(15, 23, 42);
   padding: 10px;
   display: flex;
   justify-content: center;
@@ -33,7 +33,7 @@ html, body {
 }
 
 .navbar a.active {
-  color: #ffcc00;
+  color: rgb(148, 163, 184);
   text-decoration: underline;
 }
 
@@ -50,13 +50,13 @@ html, body {
 }
 
 .section-hero {
-  background: #0076b6; /* Blue hero section */
-  color: white;
+  background: rgb(15, 23, 42); /* Blue hero section */
+  color: rgb(148, 163, 184);
 }
 
 .section-alt {
-  background: #f4f4f4; /* Light gray alternate sections */
-  color: #333;
+  background: rgb(15, 23, 42); /* Light gray alternate sections */
+  color: rgb(148, 163, 184);
 }
 
 .hero-content {

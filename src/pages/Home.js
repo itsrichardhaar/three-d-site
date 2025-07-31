@@ -3,6 +3,11 @@ import React, { useEffect, useRef } from "react";
 import anime from "animejs";
 import { useNavigate } from "react-router-dom";
 import '../App.css';
+import Particles from '../components/Particles';
+import LightRays from '../components/LightRays';
+
+
+
 
 function Home() {
     const navigate = useNavigate();
@@ -72,27 +77,60 @@ function Home() {
       </nav>
 
       <section
-        ref={(el) => (sectionsRef.current[0] = el)}
-        id="hero"
-        className="section section-hero"
-      >
-        <div className="hero-content">
-          <h1 className="hero-title">3D Animation Test</h1>
-          <p className="hero-subtext">Scroll down to see more content.</p>
-          <button className="hero-btn" onClick={() => navigate("/3d-model")}>
-            View 3D Model
-          </button>
-        </div>
-      </section>
+  ref={(el) => (sectionsRef.current[0] = el)}
+  id="hero"
+  className="section section-hero"
+  style={{ position: 'relative', overflow: 'hidden' }} // Add this style
+>
+  <Particles
+    particleColors={['#ffffff', '#ffffff']}
+    particleCount={900}
+    particleSpread={10}
+    speed={0.1}
+    particleBaseSize={100}
+    moveParticlesOnHover={true}
+    alphaParticles={false}
+    disableRotation={false}
+  />
+  <div className="hero-content" style={{ position: 'relative', zIndex: 1 }}>
+    <h1 className="hero-title">3D Animation Test</h1>
+    <p className="hero-subtext">Scroll down to see more content.</p>
+    <button className="hero-btn" onClick={() => navigate("/3d-model")}>
+      View 3D Model
+    </button>
+  </div>
+</section>
+
 
       <section
         ref={(el) => (sectionsRef.current[1] = el)}
         id="about"
         className="section section-alt"
+        style={{ position: 'relative', overflow: 'hidden' }}
       >
-        <h2>About Us</h2>
-        <p>This is the about section.</p>
+        <LightRays
+          raysOrigin="top-center"
+          raysColor="#fff"
+          raysSpeed={0.5}
+          saturation={1}
+          lightSpread={0.5}
+          rayLength={3}
+          followMouse={true}
+          mouseInfluence={0.2}
+          noiseAmount={0}
+          distortion={0}
+          pulsating="false"
+          className="custom-rays"
+        />
+        <div className="hero-content" style={{ position: 'relative', zIndex: 1 }}>
+          <h1 className="hero-title">About Us</h1>
+          <p className="hero-subtext">Learn more about the team</p>
+          <button className="hero-btn" onClick={() => navigate("/3d-model")}>
+            This is the about section.
+          </button>
+        </div>
       </section>
+      
 
       <section
         ref={(el) => (sectionsRef.current[2] = el)}
