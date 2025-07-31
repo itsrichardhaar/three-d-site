@@ -1,5 +1,5 @@
 // src/Home.js
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import anime from "animejs";
 import { useNavigate } from "react-router-dom";
 import '../App.css';
@@ -13,6 +13,15 @@ function Home() {
     const navigate = useNavigate();
   const sectionsRef = useRef([]);
   const navLinksRef = useRef([]);
+  const [transitioning, setTransitioning] = useState(false);
+  const [revealed, setRevealed] = useState(false);
+
+  const handleReveal = () => {
+    setTransitioning(true);
+    setTimeout(() => {
+      setRevealed(true);
+    }, 1200); // Match with CSS animation duration
+  };
 
   useEffect(() => {
 
@@ -123,23 +132,34 @@ function Home() {
           className="custom-rays"
         />
         <div className="hero-content" style={{ position: 'relative', zIndex: 1 }}>
-          <h1 className="hero-title">About Us</h1>
-          <p className="hero-subtext">Get to know the team</p>
-          <button className="hero-btn" onClick={() => navigate("/3d-model")}>
-            Learn More
-          </button>
+          <h1 className="hero-title">Move mouse to control lights</h1>
+          <p className="hero-subtext">Keep scrolling for more.</p>
         </div>
       </section>
       
-
+      <div className="reveal">
       <section
         ref={(el) => (sectionsRef.current[2] = el)}
         id="services"
         className="section section-hero"
       >
-        <h2>Our Services</h2>
-        <p>We offer great services.</p>
+        <h2>Click the button to reveal</h2>
+        <p>Reveal and scroll to see the next section.</p>
+        <button className="hero-btn" onClick={handleReveal}>
+            Click Here
+          </button>
       </section>
+
+      {transitioning && <div className="circle-reveal" />}
+
+      {revealed && (
+        <section className="next-section">
+          <h2>Scroll to view next section</h2>
+          <p>This is the next section revealed with a circle.</p>
+        </section>
+      )}
+
+      </div>
 
       <section
         ref={(el) => (sectionsRef.current[3] = el)}

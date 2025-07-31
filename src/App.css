@@ -8,11 +8,6 @@ body, .App {
   padding: 0;
 }
 
-html, body {
-  height: 100%;
-  overflow: hidden;  /* Prevent scrolling */
-}
-
 .navbar {
   position: fixed;
   top: 0;
@@ -80,6 +75,79 @@ html, body {
   text-decoration: underline;
 }
 
+.reveal {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero {
+  height: 100vh;
+  background: #222;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero button {
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.circle-reveal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0px;
+  height: 0px;
+  background: white;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: expandCircle 1.2s ease-in-out forwards;
+  z-index: 2;
+}
+
+@keyframes expandCircle {
+  0% {
+    width: 0;
+    height: 0;
+  }
+  100% {
+    width: 300vw;
+    height: 300vw;
+  }
+}
+
+
+.next-section {
+  position: relative;
+  z-index: 3; /* > 2 of circle */
+  background: white;
+  min-height: 100vh;
+  padding: 4rem;
+  color: #222;
+  animation: fadeIn 0.8s ease-in;
+  text-align: center;
+}
+
+.circle-reveal {
+  z-index: 2;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 
 

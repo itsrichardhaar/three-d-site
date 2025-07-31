@@ -12,6 +12,7 @@ function Loader({ onComplete }) {
   const [displayProgress, setDisplayProgress] = React.useState(0);
 
   useEffect(() => {
+    
     let start = 0;
     const interval = setInterval(() => {
       start += 2; // speed of progress (2% increments)
@@ -71,6 +72,13 @@ export default function ModelPage() {
   const scrollY = useRef(0);
   const textRef = useRef(null);
   const currentY = useRef(0); // track the current text position
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
 
   useEffect(() => {
     const handleWheel = (e) => {
